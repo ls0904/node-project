@@ -2,9 +2,21 @@ const db = require('../config/db');
 
 
 const schema = new db.Schema({
-    username:String,
-    password:String,
-    nickname:String,
+    username:{
+        type:String,
+        required:true
+    },
+    password:{
+        type:String,
+        required:true
+    },
+    nickname:{
+        type:String,
+    },
+    sex:{
+        type:Number,
+        default:1
+    }
 },{collection:'user'});
 
 
