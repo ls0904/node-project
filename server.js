@@ -3,6 +3,7 @@ const path = require('path');
 const app = express();
 
 
+
 const UserRouter = require('./routes/user');
 
 app.set('views',path.resolve(__dirname,'./views'));
@@ -18,7 +19,7 @@ app.use(express.urlencoded({extended:false}));
 app.use(express.static(path.resolve(__dirname,'./public')));
 
 
-app.use('/user',UserRouter);
+app.use('/api',UserRouter);
 app.listen(3000,() =>{
     console.log('服务器已启动');
 });

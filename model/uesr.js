@@ -2,10 +2,18 @@ const db = require('../config/db');
 
 
 const schema = new db.Schema({
-    username:String,
-    password:String,
+    username:{
+        type:String,
+        required:true,
+    },    
+    password:{
+        type:String,
+        required:true,
+    },
     nickname:String,
-},{collection:'user'});
-
-
+    sex:{
+        type:Number,
+        default:1
+    }
+});
 module.exports = db.model('user',schema);
