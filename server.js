@@ -18,7 +18,7 @@ app.use(express.urlencoded({extended:false}));
 app.use(express.static(path.resolve(__dirname,'./public')));
 
 
-app.use('/use',UserRouter);
+app.use('/user',UserRouter);
 app.listen(3000,() =>{
     console.log('服务器已启动');
 });
