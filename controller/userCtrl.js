@@ -50,7 +50,50 @@ const login = (req,res) =>{
     } 
  })
 }
+
+
+//修改用户信息
+const upDate = (req,res) =>{
+    let username = req.body.username;
+    let password = req.body.password;
+    let nickname = req.body.nickname;
+    UserModel.updateOne({
+        username:username,
+        password:bcrypt.hashSync(password,10),
+        nickname:nickname}).then(data =>{
+        res.send({
+            code:0,
+            msg:'修改成功'
+        })
+    }).catch( err =>{
+        res.send({
+            code:-1,
+            msg:'修改失败'
+        })
+    })
+}
+
+//删除用户
+
+const delet= (req,res) =>{
+    let id = req.body.id;
+    UserModel.deleteOne({_id:id}).then(data =>{
+        res.send({
+            code:0,
+            msg:'删除成功'
+        })
+    }).catch(err =>{
+        res.send({
+            code:-1,
+            msg:'删除失败'
+        })
+    })
+}
+
+
 module.exports = {
     reg,
-    login
+    login,
+    upDate,
+    delet
 }
