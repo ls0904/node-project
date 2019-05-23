@@ -17,7 +17,7 @@ const schema = new db.Schema({
         type:Number,
         default:1
     }
-},{collection:'user'});
+});
 
 
 module.exports = db.model('user',schema);

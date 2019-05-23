@@ -4,6 +4,7 @@ const app = express();
 
 
 const UserRouter = require('./routes/user');
+const stuRouter = require('./routes/stu');
 
 app.set('views',path.resolve(__dirname,'./views'));
 app.set('view engine','ejs');
@@ -18,7 +19,16 @@ app.use(express.urlencoded({extended:false}));
 app.use(express.static(path.resolve(__dirname,'./public')));
 
 
-app.use('/api',UserRouter);
+//设置所有得请求都加一个请求头
+
+ app.use((req,res,next) =>{
+    //响应头设置
+    res.set('Access-Control-Allow-Origin', '*');
+
+    next();
+ })
+
+app.use('/api',[UserRouter,stuRouter]);
 app.listen(3000,() =>{
     console.log('服务器已启动');
 });

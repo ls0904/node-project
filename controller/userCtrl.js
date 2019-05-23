@@ -7,19 +7,31 @@ const reg = (req,res)=>{
     let body = Object.assign({},req.body,{
         password:bcrypt.hashSync(req.body.password,10)
     })
-    let user = new UserModel(body);
-    user.save().then(() =>{
-        res.send({
-            code:0,
-            msg:'ok'
-        })
-    }).catch(() =>{
-        console.log(err);
-        res.send({
-            code:-1,
-            msg:'err'
-        })
+
+    //先对用户是否存在做一个判断
+    UserModel.findOne({username:req.body.username}).then(data =>{
+        if(data){
+            res.send({
+                code:-1,
+                msg:'该用户已存在，请重新输入'
+            })
+        }else{
+            let user = new UserModel(body);
+            user.save().then(() =>{
+                res.send({
+                    code:0,
+                    msg:'ok'
+                })
+            }).catch(() =>{
+                console.log(err);
+                res.send({
+                    code:-1,
+                    msg:'err'
+                })
+            })
+        }
     })
+ 
 }
 
 // 登录用户
