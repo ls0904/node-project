@@ -31,6 +31,27 @@ const add = (req,res) =>{
   })
 }
 
+/**
+ * 修改学生
+ * @param {*} req 
+ * @param {*} res 
+ */
+const update = (req,res) =>{
+  let name = req.body.name;
+  let age = req.body.age;
+  let sex = req.body.sex;
+  StuModel.updateOne({name:name,age:age,sex:sex}).then(data =>{
+    res.send({
+      code:0,
+      msg:'修改成功'
+    })
+  }).catch(err =>{
+      res.send({
+        code:-1,
+        msg:"修改失败"
+    })
+  })
+}
 
 //学生分页查询
 const find = (req,res) =>{
@@ -64,5 +85,6 @@ const find = (req,res) =>{
 
 module.exports = {
   add,
-  find
+  find,
+  update
 }

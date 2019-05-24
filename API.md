@@ -12,6 +12,7 @@
  | password | String | Y | 密码 |
  | cinkname | String | N | 昵称 |
  | sex | Number | N | 性别 | 
+ | avator | String | N | 用户头像 |
 
  - 返回：
 ```js

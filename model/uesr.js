@@ -16,6 +16,10 @@ const schema = new db.Schema({
     sex:{
         type:Number,
         default:1
+    },
+    avator:{
+      type:String,
+      default:'http://localhost:3000/img/pkq.jpg'
     }
 });
 

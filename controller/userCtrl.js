@@ -1,6 +1,8 @@
 const bcrypt = require('bcrypt');
 const UserModel = require('../model/uesr');
-
+const jwt = require('jsonwebtoken');
+const path = require('path');
+const fs = require('fs');
 //注册用户
 
 const reg = (req,res)=>{
@@ -40,7 +42,7 @@ const login = (req,res) =>{
     let password = req.body.password;
     UserModel.findOne({username:username}).then(data =>{
         if(!data){
-            res.send({ 
+            res.send({
                 code:-1,
                 msg:'用户名错误'
             })
@@ -50,9 +52,21 @@ const login = (req,res) =>{
     let pwd = data.password;
     let isOk = bcrypt.compareSync(password,pwd);
     if(isOk){
+        //如果登录成功，先生成一个token
+        let token = jwt.sign({
+            username:data.username,
+            id:data._id
+        },'MYGOD');
         res.send({
             code:0,
-            msg:'登录成功'
+            msg:'登录成功',
+            data:{
+                token:token,
+                userInfo:{
+                    username:data.username,
+                    avator:data.avator
+                }
+            }
         })
     }else{
         res.send({
@@ -88,7 +102,8 @@ const upDate = (req,res) =>{
 //删除用户
 
 const delet= (req,res) =>{
-    let id = req.body.id;
+    console.log('131312312')
+    let id = req.query.id;
     UserModel.deleteOne({_id:id}).then(data =>{
         res.send({
             code:0,
@@ -102,10 +117,43 @@ const delet= (req,res) =>{
     })
 }
 
+/**
+ * 用户头像修改
+ */
+const upload = (req,res) =>{
+    // console.log(req.file);
+    // res.send('111');
+    //1. 将 tmp 目录的文件，移动到 当前项目中的 public 文件夹中，修改一下名字
+    // let id = req.body.id;
+    let newFileName = new Date().getTime()+'_'+req.file.originalname;
+    let newPath = path.resolve(__dirname,'../public/img/',newFileName);
+    let data = fs.readFileSync(req.file.path);
+    fs.writeFileSync(newPath,data);
+
+    //2.修改数据库
+    UserModel.updateOne({_id:req.userId},{avator:`http://localhost:3000/img/${newFileName}`}).then(() =>{
+        res.send({
+            code:0,
+            msg:'ok',
+            data:{
+                avator:`http://localhost:3000/img/${newFileName}`
+            }
+        })
+    }).catch(err =>{
+        console.log(err.message);
+        res.send({
+            code:-1,
+            msg:'失败'
+        })
+    })
+
+}
+
 
 module.exports = {
     reg,
     login,
     upDate,
-    delet
+    delet,
+    upload
 }

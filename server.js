@@ -24,7 +24,8 @@ app.use(express.static(path.resolve(__dirname,'./public')));
  app.use((req,res,next) =>{
     //响应头设置
     res.set('Access-Control-Allow-Origin', '*');
-
+    // 设置允许前端传递的自定义请求头
+    res.set('Access-Control-Allow-Headers', 'access_token');
     next();
  })
 
