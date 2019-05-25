@@ -1,0 +1,57 @@
+
+.index{
+  margin-top: 50px;
+  text-align: center
+}
+.login{
+  position: relative;
+  height: 500px;
+}
+.tent th{
+  text-align: center
+}
+#list-fy{
+  cursor: pointer;
+}
+.input-group{
+  float: right;
+  width: 300px;
+}
+.xin{
+  float: right;
+  right: 10%;
+}
+#basic-addon3{
+  cursor: pointer;
+}
+.nickname{
+  display: inline-block;
+  font-size: 16px;
+  height: 34px;
+  line-height: 34px;
+  color: #fff;
+  background: green
+}
+#add-stu{
+  float: left;
+}
+.form-horizontal{
+  width: 500px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -100px;
+  margin-left: -250px;  
+  height: 200px;
+}
+.control-label{
+  color: #fff
+}
+.rig{
+  width: 20px;
+  float: right;
+  display: flex;
+}
+ img{
+height: 34px;
+}
